@@ -2,6 +2,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 int main(void)
 {
     pid_t childpid;
@@ -27,3 +28,4 @@ int main(void)
     }
     return (0);
 }
+

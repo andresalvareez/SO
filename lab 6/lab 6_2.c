@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
-/* This program demonstrates that the use of the getpid() function. *
+/* This program demonstrates that the use of the getpid() function.
  * When this was run 100 times on the computer the author is
  * on, only twice did the parent process execute before the
  * child process executed.
@@ -12,7 +12,6 @@
  * is an implicit cast; however, when we print the return value
  * of getpid(), it is necessary to explicitly cast it as an
  * integer.
- *
  * The type 'pid_t' is defined in the library header <sys/types.h> */
 int main(void)
 {
@@ -26,8 +25,7 @@ int main(void)
     else
     {
         printf("PADRE: después de fork()\n");
-        printf("PADRE: el (PID) del Padre sigue siendo %d - fork() retorna %d\n",
-                (int)getpid(), pid);
+        printf("PADRE: el (PID) del Padre sigue siendo %d - fork() retorna %d\n", (int)getpid(), pid);
     }
     return 0;
 }
