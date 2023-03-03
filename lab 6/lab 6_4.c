@@ -22,8 +22,7 @@ int main(void)
     }
     else
     {
-        while (childpid != wait(&status))
-            ;
+        while (childpid != wait(&status));
         fprintf(stdout, "Soy el proceso padre (%ld) y mi hijo (%ld) me ha devuelto %d\n", (long)getpid(), (long)childpid, status);
     }
     return (0);

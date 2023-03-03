@@ -12,8 +12,7 @@ int main(void)
         {
             if (fork() == 0) /* Proceso hijo */
             {
-                fprintf(stdout, "Este es el proceso hijo con padre %ld\n",
-                        (long)getppid());
+                fprintf(stdout, "Este es el proceso hijo con padre %ld\n", (long)getppid());
                 padre = 0;
             }
             else /* Proceso padre */
