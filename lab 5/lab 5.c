@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // Librería para números aleatorios
 #include <time.h>   // Librería para la semilla de números aleatorios
+#include <string.h> // Librería para las funciones de cadenas
 
 // Prototipos de las funciones
 int cuadrada(int filas, int columnas, int flag0);
@@ -17,7 +18,6 @@ int main()
 {
     int flag0 = 0; // Flag para saber si la matriz es cuadrada o no
     int filas = 0, columnas = 0, tam_matriz = 0;
-    int matriz[filas][columnas]; // Declaramos la matriz con su tamaño
 
     // Pedimos al usuario el tamaño de la matriz
     printf("Dame las filas de la matriz: \n");
@@ -25,10 +25,12 @@ int main()
     printf("Dame las columnas de la matriz: \n");
     scanf("%d", &columnas);
 
+    int matriz[filas][columnas]; // Declaramos la matriz con su tamaño
+
     flag0 = cuadrada(filas, columnas, flag0); // Llamamos a la función cuadrada
     // printf("\n\n%d\n\n",flag0); --> Para comprobar que el flag funciona
 
-    printf("Hasta que tam_matriz quieres que vaya la matriz: \n");
+    printf("Hasta que tamaño quieres que vayan los valores de la matriz: \n");
     scanf("%d", &tam_matriz);
     printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
 
@@ -91,6 +93,8 @@ void crear_matriz(int filas, int columnas, int tam_matriz, int matriz[filas][col
 void imprimir_matriz_entera(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
+    int filas_aux = filas; // Variable auxiliar para las filas **prueva**
+
     // Imprimimos la matriz con ciclos for
     printf("La matriz es: \n");
     for (i = 0; i < filas; i++)
