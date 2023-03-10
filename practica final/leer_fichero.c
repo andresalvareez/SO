@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MAX_LINE_SIZE 1024
 #define MAX_REGISTROS 100
@@ -20,44 +21,23 @@ typedef struct
 
 // Funciones prototipadas
 Registro *leerArchivo(char *filename, int *numRegistros);
-void imprimirRegistros(Registro *registros, int numRegistros);
+void imprimirRegistros(Registro *registros, int cont);
+void logPrint(char *txt, char *var);
+double horasJugadas(char *fechaInicio, char *fechaFin);
 
-void logPrint(char *txt, char *var)
-{
-    FILE *logFile = fopen("print_log.txt", "a");
-    if (logFile == NULL)
-    {
-        printf("Error al abrir el archivo de log\n");
-        exit(1);
-    }
-    // Estos if son para que si no hay variable en el log solo se imprima el texto
-    if (var != NULL && txt != NULL)
-    {
-        fprintf(logFile, "%s %s\n", txt, var);
-        printf("%s %s\n", txt, var);
-    }
-    else if(var == NULL)
-    {
-        fprintf(logFile, "%s\n", txt);
-        printf("%s\n", txt);
-    }
-    else if(txt == NULL)
-    {
-        fprintf(logFile, "%s\n", var);
-        printf("%s\n", var);
-    }
-    else{
-        printf("\n");
-    }
-    fclose(logFile);
-}
-
-//
 int main()
 {
+    double horasjuego[7];
     int numRegistros;
     Registro *registros = leerArchivo("ejemplotabla.txt", &numRegistros);
-    imprimirRegistros(registros, numRegistros);
+    for (int i = 0; i < numRegistros; i++)
+    {
+        horasjuego[i] = horasJugadas(registros[i].FECHA_INICIO, registros[i].FECHA_FIN);
+        char resultado[50];
+        sprintf(resultado, "%.2f", horasjuego[i]);
+        logPrint("Horas de juego:", resultado);
+        imprimirRegistros(registros, i);
+    }
     free(registros);
     return 0;
 }
@@ -108,18 +88,74 @@ Registro *leerArchivo(char *filename, int *numRegistros)
 }
 
 // Funcion para imprimir los datos
-void imprimirRegistros(Registro *registros, int numRegistros)
+void imprimirRegistros(Registro *registros, int cont)
 {
-    for (int i = 0; i < numRegistros; i++)
-    {
-        logPrint("IdApuesta: \n", registros[i].IdApuesta);
-        logPrint("FECHA_INICIO: \n", registros[i].FECHA_INICIO);
-        logPrint("FECHA_FIN: \n", registros[i].FECHA_FIN);
-        logPrint("IdUsuario: \n", registros[i].IdUsuario);
-        logPrint("IdSesionJuego: \n", registros[i].IdSesionJuego);
-        logPrint("Participacion: \n", registros[i].Participacion);
-        logPrint("Apuesta(en €): \n", registros[i].Apuesta);
-        logPrint("Estado(en €): \n", registros[i].Estado);
+        logPrint("IdApuesta: \n", registros[cont].IdApuesta);
+        logPrint("FECHA_INICIO: \n", registros[cont].FECHA_INICIO);
+        logPrint("FECHA_FIN: \n", registros[cont].FECHA_FIN);
+        logPrint("IdUsuario: \n", registros[cont].IdUsuario);
+        logPrint("IdSesionJuego: \n", registros[cont].IdSesionJuego);
+        logPrint("Participacion: \n", registros[cont].Participacion);
+        logPrint("Apuesta(en €): \n", registros[cont].Apuesta);
+        logPrint("Estado(en €): \n", registros[cont].Estado);
         logPrint("\n", NULL);
+}
+
+void logPrint(char *txt, char *var)
+{
+    FILE *logFile = fopen("print_log.txt", "a");
+    if (logFile == NULL)
+    {
+        printf("Error al abrir el archivo de log\n");
+        exit(1);
     }
+    // Estos if son para que si no hay variable en el log solo se imprima el texto
+    if (var != NULL && txt != NULL)
+    {
+        fprintf(logFile, "%s %s\n", txt, var);
+        printf("%s %s\n", txt, var);
+    }
+    else if (var == NULL)
+    {
+        fprintf(logFile, "%s\n", txt);
+        printf("%s\n", txt);
+    }
+    else if (txt == NULL)
+    {
+        fprintf(logFile, "%s\n", var);
+        printf("%s\n", var);
+    }
+    else
+    {
+        printf("\n");
+    }
+    fclose(logFile);
+}
+
+double horasJugadas(char *fechaInicio, char *fechaFin)
+{
+    int diaInicio, mesInicio, anoInicio, horaInicio, minInicio;
+    int diaFin, mesFin, anoFin, horaFin, minFin;
+
+    sscanf(fechaInicio, "%d/%d/%d %d:%d", &diaInicio, &mesInicio, &anoInicio, &horaInicio, &minInicio);
+    sscanf(fechaFin, "%d/%d/%d %d:%d", &diaFin, &mesFin, &anoFin, &horaFin, &minFin);
+
+    time_t tiempoInicio, tiempoFin;
+    struct tm tmInicio = {0}, tmFin = {0};
+    tmInicio.tm_year = anoInicio - 1900;
+    tmInicio.tm_mon = mesInicio - 1;
+    tmInicio.tm_mday = diaInicio;
+    tmInicio.tm_hour = horaInicio;
+    tmInicio.tm_min = minInicio;
+    tiempoInicio = mktime(&tmInicio);
+
+    tmFin.tm_year = anoFin - 1900;
+    tmFin.tm_mon = mesFin - 1;
+    tmFin.tm_mday = diaFin;
+    tmFin.tm_hour = horaFin;
+    tmFin.tm_min = minFin;
+    tiempoFin = mktime(&tmFin);
+
+    double difHoras = difftime(tiempoFin, tiempoInicio) / 3600.0;
+    return difHoras;
 }
