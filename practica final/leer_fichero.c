@@ -5,6 +5,7 @@
 
 #define MAX_LINE_SIZE 1024
 #define MAX_REGISTROS 100
+#define LOG_FILE "print_log.txt"
 
 // Estructura para almacenar cada registro del archivo
 typedef struct
@@ -27,9 +28,13 @@ double horasJugadas(char *fechaInicio, char *fechaFin);
 
 int main()
 {
+    // Este 7 es porque la tabla temporal tiene 7 filas
     double horasjuego[7];
     int numRegistros;
+    FILE *logFile = fopen(LOG_FILE, "a");
+    time_t t = time(NULL);                      
     Registro *registros = leerArchivo("ejemplotabla.txt", &numRegistros);
+
     for (int i = 0; i < numRegistros; i++)
     {
         horasjuego[i] = horasJugadas(registros[i].FECHA_INICIO, registros[i].FECHA_FIN);
@@ -37,7 +42,8 @@ int main()
         sprintf(resultado, "%.2f", horasjuego[i]);
         logPrint("Horas de juego:", resultado);
         imprimirRegistros(registros, i);
-    }
+    }                               // Obtenemos la hora actual
+    fprintf(logFile, "********************************************************\n**Nuevo log, la hora actual es: %s********************************************************\n", ctime(&t)); // Convertimos la hora en una cadena legible y la imprimimos
     free(registros);
     return 0;
 }
@@ -45,6 +51,7 @@ int main()
 // Función para leer el archivo y almacenar los registros en un array
 Registro *leerArchivo(char *filename, int *numRegistros)
 {
+    FILE *logFile = fopen(LOG_FILE, "a");
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
@@ -90,20 +97,21 @@ Registro *leerArchivo(char *filename, int *numRegistros)
 // Funcion para imprimir los datos
 void imprimirRegistros(Registro *registros, int cont)
 {
-        logPrint("IdApuesta: \n", registros[cont].IdApuesta);
-        logPrint("FECHA_INICIO: \n", registros[cont].FECHA_INICIO);
-        logPrint("FECHA_FIN: \n", registros[cont].FECHA_FIN);
-        logPrint("IdUsuario: \n", registros[cont].IdUsuario);
-        logPrint("IdSesionJuego: \n", registros[cont].IdSesionJuego);
-        logPrint("Participacion: \n", registros[cont].Participacion);
-        logPrint("Apuesta(en €): \n", registros[cont].Apuesta);
-        logPrint("Estado(en €): \n", registros[cont].Estado);
-        logPrint("\n", NULL);
+    FILE *logFile = fopen(LOG_FILE, "a");
+    logPrint("\nIdApuesta:", registros[cont].IdApuesta);
+    logPrint(":::FECHA_INICIO:", registros[cont].FECHA_INICIO);
+    logPrint(":::FECHA_FIN:", registros[cont].FECHA_FIN);
+    logPrint(":::IdUsuario:", registros[cont].IdUsuario);
+    logPrint(":::IdSesionJuego:", registros[cont].IdSesionJuego);
+    logPrint(":::Participacion:", registros[cont].Participacion);
+    logPrint(":::Apuesta(en €):", registros[cont].Apuesta);
+    logPrint(":::Estado(en €):", registros[cont].Estado);
+    logPrint("\n", NULL);
 }
 
 void logPrint(char *txt, char *var)
 {
-    FILE *logFile = fopen("print_log.txt", "a");
+    FILE *logFile = fopen(LOG_FILE, "a");
     if (logFile == NULL)
     {
         printf("Error al abrir el archivo de log\n");
@@ -112,17 +120,17 @@ void logPrint(char *txt, char *var)
     // Estos if son para que si no hay variable en el log solo se imprima el texto
     if (var != NULL && txt != NULL)
     {
-        fprintf(logFile, "%s %s\n", txt, var);
+        fprintf(logFile, "%s %s", txt, var);
         printf("%s %s\n", txt, var);
     }
     else if (var == NULL)
     {
-        fprintf(logFile, "%s\n", txt);
+        fprintf(logFile, "%s", txt);
         printf("%s\n", txt);
     }
     else if (txt == NULL)
     {
-        fprintf(logFile, "%s\n", var);
+        fprintf(logFile, "%s", var);
         printf("%s\n", var);
     }
     else
