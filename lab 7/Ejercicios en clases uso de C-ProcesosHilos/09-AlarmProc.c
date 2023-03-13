@@ -1,8 +1,10 @@
 #include <signal.h>
 #include <sys/time.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-/* FunciÛn para tratamiento de la seÒal SIGALRM */
+/* FunciÔøΩn para tratamiento de la seÔøΩal SIGALRM */
 void procesaSenial (int);
 
 /* Pone un contador de tiempo que salta la primera vez a los dos segundos y luego cada medio segundo. */
@@ -14,14 +16,14 @@ main() {
 	/* Valor inicial del contador */
 	struct timeval tiempoInicial;
 
-	/* Tiempo de repeticiÛn del contador */
+	/* Tiempo de repeticiÔøΩn del contador */
 	struct timeval tiempoRepeticion;
 
 	/* Se rellena el tiempo inicial del contador con 2 segundos */
 	tiempoInicial.tv_sec=2;
 	tiempoInicial.tv_usec=0;
 
-	/* Se rellena el tiempo de repeticiÛn con medio segundo */
+	/* Se rellena el tiempo de repeticiÔøΩn con medio segundo */
 	tiempoRepeticion.tv_sec=0;
 	tiempoRepeticion.tv_usec=500000;
 
@@ -29,13 +31,13 @@ main() {
 	contador.it_value=tiempoInicial;
 	contador.it_interval=tiempoRepeticion;
 	
-	/* Se cambia el tratamiento de la seÒal por defecto para que llame a
-	 * nuestra funciÛn procesaSenial */
+	/* Se cambia el tratamiento de la seÔøΩal por defecto para que llame a
+	 * nuestra funciÔøΩn procesaSenial */
 	signal (SIGALRM, procesaSenial);
 
 	/* Se pone en marcha el contador.
-	 * La primera vez tardar· 2 segundos en saltar, seg˙n indicamos en
-	 * tiempoInicial. Luego saltar· autom·ticamente cada medio segundo, como
+	 * La primera vez tardarÔøΩ 2 segundos en saltar, segÔøΩn indicamos en
+	 * tiempoInicial. Luego saltarÔøΩ automÔøΩticamente cada medio segundo, como
 	 * indicamos en tiempoRepeticion. */
 	setitimer (ITIMER_REAL, &contador, NULL);
 
@@ -44,7 +46,22 @@ main() {
 		pause();
 }
 
-/* Tratamiento de la seÒal SIGALRM. Escribe en pantalla que ha llegado la seÒal */
+/* Tratamiento de la seÔøΩal SIGALRM. Escribe en pantalla que ha llegado la seÔøΩal */
 void procesaSenial (int idSenhal) {
-	printf ("==> SeÒal recibida \n");
+	printf ("==> Se√±al recibida \n");
 }
+
+/* Explicacion del codigo:
+1.  Se incluye el fichero signal.h que contiene las definiciones de las funciones y constantes necesarias para el tratamiento de las se√±ales.
+2. Se incluye el fichero sys/time.h que contiene las definiciones de las funciones y constantes necesarias para el manejo de temporizadores.
+3. Se declara la funci√≥n que va a tratar la se√±al SIGALRM.
+4. Se declara la estructura del temporizador.
+5. Se declara la estructura de tiempo inicial.
+6. Se declara la estructura de tiempo de repetici√≥n.
+7. Se rellena la estructura de tiempo inicial con 2 segundos.
+8. Se rellena la estructura de tiempo de repetici√≥n con medio segundo.
+9. Se rellenan los datos del temporizador.
+10. Se cambia el tratamiento de la se√±al por defecto para que llame a nuestra funci√≥n procesaSenial.
+11. Se pone en marcha el temporizador.
+12. Se pone en marcha el bucle infinito con la funci√≥n pause().
+13. Tratamiento de la se√±al SIGALRM. Escribe en pantalla que ha llegado la se√±al. */

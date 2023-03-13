@@ -1,4 +1,6 @@
 #include<stdio.h> 
+#include<stdlib.h>
+
 
 int main(int argc, char *argv[]) { 
 	int a, b, c; 
@@ -44,3 +46,12 @@ int main(int argc, char *argv[]) {
 	return 0; 
 } 
 
+/* Explicacion del codigo:
+1. Se declaran las variables a, b y c de tipo entero.
+Se verifica que el numero de argumentos sea igual a 4.
+Se convierte los argumentos de tipo cadena a tipo entero.
+Se verifica que los argumentos sean positivos.
+Se verifica que los argumentos sean diferentes.
+Se verifica que el argumento mayor sea a.
+Se verifica que el argumento mayor sea b.
+Se verifica que el argumento mayor sea c. */

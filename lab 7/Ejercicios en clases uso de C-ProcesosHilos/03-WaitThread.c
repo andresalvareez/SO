@@ -76,3 +76,10 @@ void *funcionThread (void *parametro)
 	/* Termina el thread y devuelve una cadena "Ya t�" */
 	pthread_exit ((void *)"Por fin");
 }
+
+/* Aquí está la explicación para el código anterior:
+
+Crea un hilo
+Espera a que el hilo termine
+Imprime el valor que el hilo devolvió
+El hilo espera 1 segundo y luego sale devolviendo la cadena "Por fin" */

@@ -59,3 +59,18 @@ void *funcionThread (void *parametro) {
 		printf ("==> Hilo  : %d\n", contador);
 	}
 }
+
+/*Aquí está la explicación para el código de arriba:
+
+La función pthread_create() se utiliza para crear un nuevo hilo. Toma los siguientes argumentos:
+• pthread_t *thread: es un puntero a una variable pthread_t que se establece por esta función con el valor de ID para el nuevo hilo.
+• const pthread_attr_t *attr: es un puntero a una estructura pthread_attr_t cuyo contenido se utiliza en el momento de la creación del hilo para determinar los atributos del nuevo hilo; este argumento es opcional y debe ser NULL si no se requieren atributos de hilo.
+• void *(*start_routine) (void *): es el nombre de la función que se ejecutará en el nuevo hilo y debe tener un argumento de puntero void y devolver un puntero void.
+• void *arg: es un puntero a un argumento que se pasa a start_routine; se puede utilizar para pasar parámetros al nuevo hilo.
+En el programa anterior, se han creado dos hilos. Un hilo ejecuta la función main() y el otro hilo ejecuta la función funcionThread(). La función main() comienza con un bucle while que incrementa el valor de la variable global 'contador' e imprime su valor. La función funcionThread() también comienza con un bucle while que decrementa el valor de la variable global 'contador' e imprime su valor.
+El programa se compila con el siguiente comando:
+gcc -pthread -o test test.c
+La salida del programa es:
+Padre: 1
+==> Hijo: 0
+esto se repite indefinidamente.*/
