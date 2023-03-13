@@ -27,3 +27,13 @@ int main()
                 break;
     exit(0);
 }
+
+/* Aquí está la explicación para el código de arriba:
+
+1. El proceso padre llama a fork para crear un proceso hijo. Los procesos padre e hijo ahora se ejecutan en paralelo. 
+    El proceso hijo es una copia del proceso padre, excepto por algunas condiciones.
+2. El proceso padre llama a wait para esperar a que el hijo salga (o para recibir una señal). 
+    El proceso padre se suspende hasta que el hijo salga o se reciba una señal.
+3. El proceso hijo llama a exec para ejecutar el comando ps. El proceso hijo es reemplazado por el comando ps.
+4. El proceso padre reanuda la ejecución después de la llamada wait.
+5. El proceso padre sale.*/
