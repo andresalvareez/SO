@@ -13,6 +13,7 @@ void imprimir_pares_matriz(int filas, int columnas, int matriz[filas][columnas])
 void imprimir_impares_matriz(int filas, int columnas, int matriz[filas][columnas]);
 void imprimir_diagonal_superior(int filas, int columnas, int matriz[filas][columnas]);
 void imprimir_diagonal_inferior(int filas, int columnas, int matriz[filas][columnas]);
+void separador(int columnas);
 
 int main()
 {
@@ -32,7 +33,7 @@ int main()
 
     printf("Hasta que tamaño quieres que vayan los valores de la matriz: \n");
     scanf("%d", &tam_matriz);
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 
     crear_matriz(filas, columnas, tam_matriz, matriz); // Llamamos a la función crear_matriz
     imprimir_matriz_entera(filas, columnas, matriz);   // Llamamos a la función imprimir_matriz_entera
@@ -48,8 +49,8 @@ int main()
     }
     else if (flag0 == 0)
     {
-        printf("Como la matriz no es cuadrada no se pueden imprimir los valores correspondientes a la diagonal principal, diagonal secundaria, diagonal superior e inferior\n");
-        printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+        printf("\nComo la matriz no es cuadrada no se pueden imprimir los valores correspondientes a la diagonal principal, diagonal secundaria, diagonal superior e inferior\n");
+        separador(columnas);                              // Llamamos a la función separador
         imprimir_pares_matriz(filas, columnas, matriz);   // Llamamos a la función imprimir_pares_matriz
         imprimir_impares_matriz(filas, columnas, matriz); // Llamamos a la función imprimir_impares_matriz
     }
@@ -60,14 +61,14 @@ int cuadrada(int filas, int columnas, int flag0)
     // Con este if comprobamos si la matriz es cuadrada o no
     if (filas == columnas)
     {
-        printf("Has elegido una matriz de %d x %d \n", filas, columnas);
-        printf("La matriz es cuadrada\n");
+        printf("\nHas elegido una matriz de %d x %d \n", filas, columnas);
+        printf("\nLa matriz es cuadrada\n");
         flag0 = 1; // Si la matriz es cuadrada el cambiamos el valor del flag
     }
     else
     {
-        printf("Has elegido una matriz de %d x %d \n", filas, columnas);
-        printf("La matriz no es cuadrada\n");
+        printf("\nHas elegido una matriz de %d x %d \n", filas, columnas);
+        printf("\nLa matriz no es cuadrada\n");
         flag0 = 0; // Si la matriz no es cuadrada el cambiamos el valor del flag
     }
     return flag0; // Devolvemos el valor del flag
@@ -92,36 +93,40 @@ void crear_matriz(int filas, int columnas, int tam_matriz, int matriz[filas][col
 
 void imprimir_matriz_entera(int filas, int columnas, int matriz[filas][columnas])
 {
-    int i, j; // Variables para los ciclos for
+    int i, j;              // Variables para los ciclos for
     int filas_aux = filas; // Variable auxiliar para las filas **prueva**
 
     // Imprimimos la matriz con ciclos for
-    printf("La matriz es: \n");
+    printf("\nLa matriz es: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
         {
-            // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-            if (matriz[i][j] >= 10)
+            // Con estos if's hacemos que los números se vean con 3 dígitos
+            if (matriz[i][j] >= 100)
             {
                 printf("%d ", matriz[i][j]);
             }
-            else
+            else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
             {
                 printf("0%d ", matriz[i][j]);
+            }
+            else if (matriz[i][j] < 10)
+            {
+                printf("00%d ", matriz[i][j]);
             }
         }
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_diagonal_principal(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("La matriz diagonal principal es: \n");
+    printf("\nLa matriz diagonal principal es: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -147,14 +152,14 @@ void imprimir_diagonal_principal(int filas, int columnas, int matriz[filas][colu
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_diagonal_secundaria(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("La matriz diagonal secundaria es: \n");
+    printf("\nLa matriz diagonal secundaria es: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -180,14 +185,14 @@ void imprimir_diagonal_secundaria(int filas, int columnas, int matriz[filas][col
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_pares_matriz(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("Los pares de la matriz son: \n");
+    printf("\nLos pares de la matriz son: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -213,14 +218,14 @@ void imprimir_pares_matriz(int filas, int columnas, int matriz[filas][columnas])
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_impares_matriz(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("Los impares de la matriz son: \n");
+    printf("\nLos impares de la matriz son: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -246,14 +251,14 @@ void imprimir_impares_matriz(int filas, int columnas, int matriz[filas][columnas
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_diagonal_superior(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("La matriz diagonal superior es: \n");
+    printf("\nLa matriz diagonal superior es: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -279,14 +284,14 @@ void imprimir_diagonal_superior(int filas, int columnas, int matriz[filas][colum
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
 }
 
 void imprimir_diagonal_inferior(int filas, int columnas, int matriz[filas][columnas])
 {
     int i, j; // Variables para los ciclos for
     // Imprimimos la matriz con ciclos for
-    printf("La matriz diagonal inferior es: \n");
+    printf("\nLa matriz diagonal inferior es: \n");
     for (i = 0; i < filas; i++)
     {
         for (j = 0; j < columnas; j++)
@@ -312,5 +317,13 @@ void imprimir_diagonal_inferior(int filas, int columnas, int matriz[filas][colum
         // Con este printf hacemos que se vea como una matriz
         printf("\n");
     }
-    printf("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈\n");
+    separador(columnas); // Llamamos a la función separador
+}
+
+void separador(int columnas)
+{
+    for (int i = 0; i < columnas; i++)
+    {
+        printf("≈≈≈");
+    }
 }
