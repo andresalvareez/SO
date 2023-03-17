@@ -134,14 +134,18 @@ void imprimir_diagonal_principal(int filas, int columnas, int matriz[filas][colu
             // Este if es para la diagonal principal
             if (i == j)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
@@ -167,14 +171,18 @@ void imprimir_diagonal_secundaria(int filas, int columnas, int matriz[filas][col
             // Este es el if para la diagonal secundaria
             if (i + j == columnas - 1)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
@@ -200,14 +208,18 @@ void imprimir_pares_matriz(int filas, int columnas, int matriz[filas][columnas])
             // Este if es para imprimir los pares
             if (matriz[i][j] % 2 == 0)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
@@ -233,14 +245,18 @@ void imprimir_impares_matriz(int filas, int columnas, int matriz[filas][columnas
             // Este if es para imprimir los impares
             if (matriz[i][j] % 2 != 0)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
@@ -266,14 +282,18 @@ void imprimir_diagonal_superior(int filas, int columnas, int matriz[filas][colum
             // Este if es la condicion para imprimir la diagonal superior
             if (i < j || i == j)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
@@ -299,14 +319,18 @@ void imprimir_diagonal_inferior(int filas, int columnas, int matriz[filas][colum
             // Este if es la condicion para imprimir la diagonal inferior
             if (i > j || i == j)
             {
-                // Con estos if's hacemos que los números de una cifra se vean con un 0 delante
-                if (matriz[i][j] >= 10)
+                // Con estos if's hacemos que los números se vean con 3 dígitos
+                if (matriz[i][j] >= 100)
                 {
                     printf("%d ", matriz[i][j]);
                 }
-                else
+                else if (matriz[i][j] < 100 && matriz[i][j] >= 10)
                 {
                     printf("0%d ", matriz[i][j]);
+                }
+                else if (matriz[i][j] < 10)
+                {
+                    printf("00%d ", matriz[i][j]);
                 }
             }
             else
